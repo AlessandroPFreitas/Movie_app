@@ -8,6 +8,6 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  base: '/learning-react/',
+  base: '/Movie_app',
   
 })
