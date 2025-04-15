@@ -1,6 +1,8 @@
-import React from "react";
-
-const MovieHeader = ({ title, release_date }) => {
+import React, { useContext } from "react";
+import { SelectMovie } from "../App";
+const MovieHeader = () => {
+  const {selectMovie} = useContext(SelectMovie);
+  const { title, release_date } = selectMovie;
   return (
     <>
       <section className="movie-header">

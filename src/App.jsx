@@ -2,8 +2,10 @@ import Movie from "./components/Movie.jsx";
 import Search from "./components/Search.jsx";
 import Spinner from "./components/Spinner.jsx";
 import InfoMovie from "./components/InfoMovie.jsx";
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext } from "react";
 import { useDebounce } from "react-use";
+
+export const SelectMovie = createContext();
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -11,6 +13,7 @@ const App = () => {
   const [movieList, setMovieList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [debounceSearchTerm, setDebounceSearchTerm] = useState("");
+  const [selectMovie, setSelectMovie] = useState(null);
   useDebounce(
     () => {
       setDebounceSearchTerm(searchTerm);
@@ -18,11 +21,9 @@ const App = () => {
     500,
     [searchTerm]
   );
-  const [selectMovie, setSelectMovie] = useState(null);
 
   const API_URL = "https://api.themoviedb.org/3";
   const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
-
   const API_OPTIONS = {
     method: "GET",
     headers: {
@@ -81,7 +82,9 @@ const App = () => {
     <>
       {selectMovie !== null ? (
         <div className="pattern-info">
-          <InfoMovie movie={selectMovie} />
+          <SelectMovie.Provider value={{selectMovie, setSelectMovie}}>
+            <InfoMovie />
+          </SelectMovie.Provider>
         </div>
       ) : (
         <>

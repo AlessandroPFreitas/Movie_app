@@ -1,19 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import Format from "./Format";
+import { SelectMovie } from "../App";
+const MovieDetails = () => {
+  const { selectMovie, setSelectMovie } = useContext(SelectMovie);
+  const {
+    overview,
+    genres,
+    status,
+    spoken_languages = [],
+    budget,
+    revenue,
+    tagline,
+    production_companies,
+    production_countries,
+    release_date,
+  } = selectMovie;
 
-const MovieDetails = ({
-  overview,
-  genres,
-  status,
-  spoken_languages = [],
-  budget,
-  revenue,
-  tagline,
-  production_companies,
-  production_countries,
-  release_date,
-  selectMovie
-}) => {
   const languagesString = spoken_languages
     .filter((language) => language && language.english_name)
     .map((language) => language.english_name)
@@ -50,7 +52,7 @@ const MovieDetails = ({
         </div>
         <div className="countries">
           <h2>Countries</h2>
-            <p>{countries}</p>
+          <p>{countries}</p>
         </div>
         <div className="status">
           <h2>Status</h2>
@@ -58,7 +60,7 @@ const MovieDetails = ({
         </div>
         <div className="language">
           <h2>Language</h2>
-            <p>{languagesString}</p>
+          <p>{languagesString}</p>
         </div>
         <div className="budget">
           <h2>Budget</h2>
@@ -81,12 +83,16 @@ const MovieDetails = ({
 
         <div className="companies">
           <h2>Production Companies</h2>
-            <p>{companies}</p>
+          <p>{companies}</p>
         </div>
       </div>
 
       <div className="button">
-        <button onClick={() => selectMovie(null)}>
+        <button
+          onClick={() => {
+            setSelectMovie(null);
+          }}
+        >
           Visit Homepage <i className="fa-solid fa-arrow-right"></i>
         </button>
       </div>

@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { SelectMovie } from "../App";
 
-const MovieImages = ({ backdrop_path, poster_path }) => {
+const MovieImages = () => {
+  const {selectMovie} = useContext(SelectMovie);
+  const { backdrop_path, poster_path } = selectMovie;
   return (
     <div className="movie-images">
       <img
