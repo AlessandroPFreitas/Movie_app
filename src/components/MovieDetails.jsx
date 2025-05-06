@@ -31,6 +31,15 @@ const MovieDetails = () => {
     .map((countrie) => countrie.name)
     .join(" • ");
 
+  const formatData = (dataString) => {
+    const date = new Date(dataString);
+    return date.toLocaleDateString("en-US", {
+      month: "long",
+      year: "numeric",
+      day: "numeric",
+    });
+  };
+
   return (
     <section className="movie-details">
       <div className="movie-info">
@@ -42,13 +51,14 @@ const MovieDetails = () => {
             ))}
           </div>
         </div>
+
         <div className="overview">
           <h2>Overview</h2>
           <p>{overview}</p>
         </div>
         <div className="realease-data">
           <h2>Release date</h2>
-          <p>{release_date}</p>
+          <p>{formatData(release_date)}</p>
         </div>
         <div className="countries">
           <h2>Countries</h2>
@@ -62,24 +72,31 @@ const MovieDetails = () => {
           <h2>Language</h2>
           <p>{languagesString}</p>
         </div>
-        <div className="budget">
-          <h2>Budget</h2>
-          <p>
-            <Format value={budget} />
-          </p>
-        </div>
 
-        <div className="revenue">
-          <h2>Revenue</h2>
-          <p>
-            <Format value={revenue} />
-          </p>
-        </div>
+        {budget > 0 && (
+          <div className="budget">
+            <h2>Budget</h2>
+            <p>
+              <Format value={budget} />
+            </p>
+          </div>
+        )}
 
-        <div className="tagline">
-          <h2>Tagline</h2>
-          <p>{tagline}</p>
-        </div>
+        {revenue > 0 && (
+          <div className="revenue">
+            <h2>Revenue</h2>
+            <p>
+              <Format value={revenue} />
+            </p>
+          </div>
+        )}
+
+        {tagline !== '' && (
+          <div className="tagline">
+            <h2>Tagline</h2>
+            <p>{tagline}</p>
+          </div>
+        )}
 
         <div className="companies">
           <h2>Production Companies</h2>

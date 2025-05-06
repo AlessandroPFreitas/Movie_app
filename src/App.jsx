@@ -1,7 +1,7 @@
-import Movie from "./components/Movie.jsx";
+import Movie from "./pages/Movie.jsx";
 import Search from "./components/Search.jsx";
 import Spinner from "./components/Spinner.jsx";
-import InfoMovie from "./components/InfoMovie.jsx";
+import InfoMovie from "./pages/InfoMovie.jsx";
 import { useEffect, useState, createContext } from "react";
 import { useDebounce } from "react-use";
 
@@ -72,7 +72,6 @@ const App = () => {
       }
       const data = await response.json();
       setSelectMovie(data);
-      console.log(data);
     } catch (error) {
       console.error(`Error fetching movie details: ${error}`);
     }
@@ -81,11 +80,10 @@ const App = () => {
   return (
     <>
       {selectMovie !== null ? (
-        <div className="pattern-info">
+
           <SelectMovie.Provider value={{selectMovie, setSelectMovie}}>
             <InfoMovie />
           </SelectMovie.Provider>
-        </div>
       ) : (
         <>
           <div className="pattern" />
